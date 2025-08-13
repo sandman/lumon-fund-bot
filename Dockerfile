@@ -19,7 +19,7 @@ if [ ! -f /data/.initialized ]; then\n\
 fi\n\
 \n\
 cd /app/docling\n\
-streamlit run 5-chat.py --server.port=$PORT --server.address=0.0.0.0' > /entrypoint.sh && \
+streamlit run 5-chat.py --server.port=8501 --server.address=0.0.0.0' > /entrypoint.sh && \
     chmod +x /entrypoint.sh
 
 # Expose port for Railway
