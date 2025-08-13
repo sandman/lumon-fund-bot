@@ -26,6 +26,7 @@ streamlit run 5-chat.py --server.port=$PORT --server.address=0.0.0.0' > /entrypo
 EXPOSE 8501
 
 # Use the data volume at runtime
-VOLUME ["/data"]
+# VOLUME ["/data"]
+# Uncomment the above line if you are not using Railway. For Railway, we use the data volume from the Railway dashboard.
 
 ENTRYPOINT ["/entrypoint.sh"]
