@@ -53,13 +53,13 @@ fi
 echo "✅ Data volume ready."
 
 # Start Streamlit on provided $PORT or default 8501
-echo "🚀 Starting Streamlit on port ${PORT:-8501}..."
+echo "🚀 Starting Streamlit on port ${PORT:-8080}..."
 exec streamlit run /app/docling/5-chat.py --server.port=${PORT:-8501} --server.address=0.0.0.0
 EOF
 
 RUN chmod +x /entrypoint.sh
 
-ARG PORT=8501
+ARG PORT=8080
 EXPOSE ${PORT}
 
 ENTRYPOINT ["/entrypoint.sh"]
