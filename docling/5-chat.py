@@ -2,6 +2,7 @@ import streamlit as st
 import lancedb
 from openai import OpenAI
 from dotenv import load_dotenv
+import os
 
 # Load environment variables
 load_dotenv()
@@ -18,8 +19,16 @@ def init_db():
     Returns:
         LanceDB table object
     """
-    db = lancedb.connect("data/lancedb")
-    return db.open_table("portfolio")
+    # Use /data for Railway, fallback to local path
+    db_path = "/data/lancedb" if os.path.exists("/data") else "data/lancedb"
+    
+    try:
+        db = lancedb.connect(db_path)
+        return db.open_table("portfolio")
+    except Exception as e:
+        st.error(f"Failed to connect to database at {db_path}: {str(e)}")
+        st.info("Make sure the database has been initialized by running the pipeline steps 1-3")
+        st.stop()
 
 
 def get_context(query: str, table, num_results: int = 5) -> str:
