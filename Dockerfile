@@ -19,4 +19,4 @@ COPY . .
 ARG PORT=8080
 EXPOSE ${PORT}
 
-CMD streamlit run docling/app.py --server.address 0.0.0.0 --server.port $PORT
+CMD streamlit run docling/5-chat.py --server.address 0.0.0.0 --server.port $PORT
