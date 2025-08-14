@@ -15,8 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 
-
 ARG PORT=8080
 EXPOSE ${PORT}
 
-CMD streamlit run /app/docling/5-chat.py --server.address 0.0.0.0 --server.port $PORT
+CMD streamlit run /app/docling/5-chat.py --server.address 0.0.0.0 --server.port $PORT --server.headless true
