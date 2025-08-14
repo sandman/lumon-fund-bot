@@ -22,6 +22,14 @@ set -e
 # Ensure /data exists
 mkdir -p /data
 
+echo "---- STARTUP DEBUG ----"
+echo "PORT env var: $PORT"
+echo "Whoami: $(whoami)"
+echo "Working dir: $(pwd)"
+echo "Listing /data:"
+ls -lah /data || echo "/data not accessible"
+echo "-----------------------"
+
 # First-run marker
 if [ ! -f /data/.initialized ]; then
     echo "📦 First run: initializing /data volume..."
