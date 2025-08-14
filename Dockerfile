@@ -19,7 +19,7 @@ ARG PORT=8080
 EXPOSE ${PORT}
 
 RUN echo '#!/bin/bash\n\
-if [ -d "/data" ] && [ ! -f "/data/.initialized" ]; then\n\
+if [ ! -f "/data/.initialized" ]; then\n\
     echo "Copying database to persistent volume..."\n\
     cp -r /app/data/* /data/ 2>/dev/null || true\n\
     touch /data/.initialized\n\
