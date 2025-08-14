@@ -1,22 +1,22 @@
 FROM python:3.12-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies (for rsync, etc.)
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     rsync \
  && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies first (layer caching)
+# Install Python dependencies first
 COPY docling/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all project files
 COPY . .
 
-# Create entrypoint script
-RUN echo '#!/bin/bash
+# Create entrypoint script using here-doc
+RUN cat <<'EOF' > /entrypoint.sh
+#!/bin/bash
 set -e
 
 # Ensure /data exists
@@ -55,9 +55,10 @@ echo "✅ Data volume ready."
 # Start Streamlit on provided $PORT or default 8501
 echo "🚀 Starting Streamlit on port ${PORT:-8501}..."
 exec streamlit run /app/docling/5-chat.py --server.port=${PORT:-8501} --server.address=0.0.0.0
-' > /entrypoint.sh && chmod +x /entrypoint.sh
+EOF
 
-# Railway sets $PORT automatically — make it configurable
+RUN chmod +x /entrypoint.sh
+
 ARG PORT=8501
 EXPOSE ${PORT}
 
