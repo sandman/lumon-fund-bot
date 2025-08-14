@@ -44,9 +44,8 @@ fi\n\
 \n\
 echo "✅ Data volume ready."\n\
 \n\
-# Start Streamlit from repo code location\n\
-cd /app/docling\n\
-exec streamlit run 5-chat.py --server.port="$PORT" --server.address=0.0.0.0\n\
+# Starting Streamlit on port ${PORT:-8501}...\n\
+exec streamlit run /app/docling/5-chat.py --server.port="${PORT:-8501}" --server.address=0.0.0.0\n\
 ' > /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Expose Streamlit default port
