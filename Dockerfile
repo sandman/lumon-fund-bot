@@ -18,13 +18,13 @@ COPY . .
 ARG PORT=8080
 EXPOSE ${PORT}
 
-RUN echo '#!/bin/bash\n\
-if [ ! -f "/data/.initialized" ]; then\n\
-    echo "Copying database to persistent volume..."\n\
-    cp -r /app/data/* /data/ 2>/dev/null || true\n\
-    touch /data/.initialized\n\
-fi\n\
-exec streamlit run /app/docling/5-chat.py --server.address 0.0.0.0 --server.port ${PORT} --server.headless true\n\
+RUN echo -e '#!/bin/bash
+if [ ! -f "/data/.initialized" ]; then
+    echo "Copying database to persistent volume..."
+    cp -ar data/* /data/ 2>/dev/null || true
+    touch /data/.initialized
+fi
+exec streamlit run /app/docling/5-chat.py --server.address 0.0.0.0 --server.port ${PORT} --server.headless true
 ' > /start.sh && chmod +x /start.sh
 
 CMD ["/start.sh"]
