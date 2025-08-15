@@ -96,7 +96,7 @@ pyproject.toml
 uv.lock
 
 # Exclude LanceDB database
-lancedb/
+# lancedb/
 
 # Exclude temporary files
 temp/
